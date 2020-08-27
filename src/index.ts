@@ -111,7 +111,7 @@ const extension: JupyterFrontEndPlugin<void> = {
         newDashboardURL +
         URLExt.objectToQueryString({
           start_path: path,
-          name: PathExt.basename(path, '.ipynb')
+          name: PathExt.basename(path, '.ipynb').replace('_', ' ')
         })
       );
     }
@@ -125,7 +125,7 @@ const extension: JupyterFrontEndPlugin<void> = {
         }
         await current.context.save();
         const dashboardUrl = getDashboardUrl(current.context.path);
-        window.open(dashboardUrl);
+        window.open(dashboardUrl, '_blank');
       },
       isEnabled
     });
