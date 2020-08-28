@@ -110,6 +110,7 @@ const extension: JupyterFrontEndPlugin<void> = {
       return (
         newDashboardURL +
         URLExt.objectToQueryString({
+          // eslint-disable-next-line @typescript-eslint/camelcase
           start_path: path,
           name: PathExt.basename(path, '.ipynb').replace('_', ' ')
         })
