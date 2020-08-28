@@ -5,6 +5,7 @@ import {
 import { ICommandPalette, ToolbarButton } from '@jupyterlab/apputils';
 import { PathExt, URLExt } from '@jupyterlab/coreutils';
 import { DocumentRegistry } from '@jupyterlab/docregistry';
+import { ILauncher } from '@jupyterlab/launcher';
 import { IMainMenu } from '@jupyterlab/mainmenu';
 import {
   INotebookModel,
@@ -14,6 +15,7 @@ import {
 import { CommandRegistry } from '@lumino/commands';
 import { ReadonlyJSONObject } from '@lumino/coreutils';
 import { IDisposable } from '@lumino/disposable';
+import { requestAPI, ContainDS } from './request';
 
 const CONTAINDS_ICON_CLASS = 'jp-MaterialIcon cds-dashboard-icon';
 
@@ -21,7 +23,8 @@ const CONTAINDS_ICON_CLASS = 'jp-MaterialIcon cds-dashboard-icon';
  * The command IDs used by the plugin.
  */
 export namespace CommandIDs {
-  export const containdsOpen = 'notebook:open-with-containds';
+  export const containdsCreate = 'notebook:open-with-containds';
+  export const containdsOpen = 'containds:open-dashboard';
 }
 
 /**
@@ -64,13 +67,14 @@ const extension: JupyterFrontEndPlugin<void> = {
   id: '@ideonate/jupyter-containds:plugin',
   autoStart: true,
   requires: [JupyterFrontEnd.IPaths, INotebookTracker],
-  optional: [ICommandPalette, IMainMenu],
+  optional: [ICommandPalette, IMainMenu, ILauncher],
   activate: (
     app: JupyterFrontEnd,
     paths: JupyterFrontEnd.IPaths,
     notebooks: INotebookTracker,
     palette: ICommandPalette | null,
-    menu: IMainMenu | null
+    menu: IMainMenu | null,
+    launcher: ILauncher | null
   ) => {
     const { commands, docRegistry } = app;
     const hubHost = paths.urls.hubHost || '';
@@ -117,7 +121,7 @@ const extension: JupyterFrontEndPlugin<void> = {
       );
     }
 
-    commands.addCommand(CommandIDs.containdsOpen, {
+    commands.addCommand(CommandIDs.containdsCreate, {
       label: 'New ContainDS Dashboard',
       caption: 'Create as a ContainDS Dashboard in New Browser Tab',
       execute: async args => {
@@ -130,6 +134,22 @@ const extension: JupyterFrontEndPlugin<void> = {
         window.open(dashboardUrl, '_blank');
       },
       isEnabled
+    });
+
+    commands.addCommand(CommandIDs.containdsOpen, {
+      label: args =>
+        args['name'] ? (args['name'] as string) : 'Open a ContainDS Dashboard',
+      caption: args =>
+        args['name']
+          ? `Open '${args['name']}' Dashboard in a New Browser Tab`
+          : 'Open a ContainDS Dashboard in a New Browser Tab',
+      execute: args => {
+        const url = args['url'] as string;
+        if (url) {
+          window.open(url, '_blank');
+        }
+      },
+      icon: CONTAINDS_ICON_CLASS
     });
 
     if (palette) {
@@ -148,9 +168,43 @@ const extension: JupyterFrontEndPlugin<void> = {
       );
     }
 
+    if (launcher) {
+      Private.addDashboardsToLauncher(
+        launcher,
+        hubHost + URLExt.join(hubPrefix, 'dashboards-api')
+      ).catch(reason => {
+        console.error('Fail to add dashboards to the launcher', reason);
+      });
+    }
+
     const dashboardButton = new ContainDSOpenButton(commands);
     docRegistry.addWidgetExtension('Notebook', dashboardButton);
   }
 };
 
 export default extension;
+
+/* eslint-disable no-inner-declarations */
+namespace Private {
+  const launcherCategory = 'ContainDS Dashboards';
+
+  export async function addDashboardsToLauncher(
+    launcher: ILauncher,
+    endpoint: string
+  ): Promise<void> {
+    const dashboardsMap = await requestAPI<ContainDS.IDashboards>(endpoint);
+    for (const user in dashboardsMap) {
+      if (Object.prototype.hasOwnProperty.call(dashboardsMap, user)) {
+        const dashboards = dashboardsMap[user];
+
+        dashboards.map(dashboard => {
+          launcher.add({
+            command: CommandIDs.containdsOpen,
+            args: { ...dashboard },
+            category: launcherCategory
+          });
+        });
+      }
+    }
+  }
+}
