@@ -118,7 +118,8 @@ const extension: JupyterFrontEndPlugin<void> = {
     }
 
     commands.addCommand(CommandIDs.containdsOpen, {
-      label: 'Create as a ContainDS Dashboard in New Browser Tab',
+      label: 'New ContainDS Dashboard',
+      caption: 'Create as a ContainDS Dashboard in New Browser Tab',
       execute: async args => {
         const current = getCurrent(args);
         if (!current) {
