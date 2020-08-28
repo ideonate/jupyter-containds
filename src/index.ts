@@ -14,8 +14,9 @@ import {
 } from '@jupyterlab/notebook';
 import { CommandRegistry } from '@lumino/commands';
 import { ReadonlyJSONObject } from '@lumino/coreutils';
-import { IDisposable } from '@lumino/disposable';
+import { IDisposable, DisposableSet } from '@lumino/disposable';
 import { requestAPI, ContainDS } from './request';
+import { Poll } from '@lumino/polling';
 
 const CONTAINDS_ICON_CLASS = 'jp-MaterialIcon cds-dashboard-icon';
 
@@ -221,21 +222,70 @@ namespace Private {
     launcher: ILauncher,
     endpoint: string
   ): Promise<void> {
-    const dashboardsMap = await requestAPI<ContainDS.IDashboards>(endpoint);
-    for (const user in dashboardsMap) {
-      if (Object.prototype.hasOwnProperty.call(dashboardsMap, user)) {
-        const dashboards = dashboardsMap[user];
-        const owned = user === '_owned';
-        dashboards.map(dashboard => {
-          launcher.add({
-            command: CommandIDs.containdsOpen,
-            args: { ...dashboard, owned },
-            category: owned
-              ? 'Your ContainDS Dashboards'
-              : 'Shared ContainDS Dashboards'
+    _launcher = launcher;
+    _endpoint = endpoint;
+    _pollDashboards.start();
+  }
+
+  async function _requestDashboards(): Promise<void> {
+    const dashboardsMap = await requestAPI<ContainDS.IDashboards>(_endpoint);
+
+    if (
+      JSON.stringify(dashboardsMap) !== JSON.stringify(_dashboardsMap || {})
+    ) {
+      _dashboardsMap = dashboardsMap;
+      if (_disposables) {
+        _disposables.dispose();
+        _disposables = null;
+      }
+
+      _disposables = new DisposableSet();
+      for (const user in _dashboardsMap) {
+        if (Object.prototype.hasOwnProperty.call(_dashboardsMap, user)) {
+          const dashboards = _dashboardsMap[user];
+          const owned = user === '_owned';
+          dashboards.forEach(dashboard => {
+            _disposables.add(
+              _launcher.add({
+                command: CommandIDs.containdsOpen,
+                args: { ...dashboard, owned },
+                category: owned
+                  ? 'Your ContainDS Dashboards'
+                  : 'Shared ContainDS Dashboards'
+              })
+            );
           });
-        });
+        }
       }
     }
   }
+
+  /**
+   * Available dashboards
+   */
+  let _dashboardsMap: ContainDS.IDashboards;
+  /**
+   * Store the launcher items to remove them before updating them
+   */
+  let _disposables: DisposableSet | null = null;
+  /**
+   * API URL to get the dashboards list
+   */
+  let _endpoint = '';
+  let _launcher: ILauncher;
+  /**
+   * Polling of the JupyterHub API to update the dashboards list
+   */
+  const _pollDashboards = new Poll({
+    auto: false,
+    factory: async (): Promise<void> => {
+      await _requestDashboards();
+    },
+    frequency: {
+      interval: 61 * 1000,
+      backoff: true,
+      max: 300 * 1000
+    },
+    name: '@ideonate/jupyter-containds:plugin#dashboards'
+  });
 }
