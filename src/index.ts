@@ -45,15 +45,15 @@ class ContainDSOpenButton
    */
   createNew(panel: NotebookPanel): IDisposable {
     const button = new ToolbarButton({
-      className: 'containdsOpen',
+      className: 'containdsCreate',
       tooltip: 'Deploy as a ContainDS Dashboard',
       iconClass: CONTAINDS_ICON_CLASS,
       iconLabel: 'Dashboard',
       onClick: (): void => {
-        this._commands.execute(CommandIDs.containdsOpen);
+        this._commands.execute(CommandIDs.containdsCreate);
       }
     });
-    panel.toolbar.insertAfter('cellType', 'containdsOpen', button);
+    panel.toolbar.insertAfter('cellType', 'containdsCreate', button);
     return button;
   }
 
@@ -137,16 +137,41 @@ const extension: JupyterFrontEndPlugin<void> = {
     });
 
     commands.addCommand(CommandIDs.containdsOpen, {
-      label: args =>
-        args['name'] ? (args['name'] as string) : 'Open a ContainDS Dashboard',
-      caption: args =>
-        args['name']
-          ? `Open '${args['name']}' Dashboard in a New Browser Tab`
-          : 'Open a ContainDS Dashboard in a New Browser Tab',
+      label: args => {
+        if (args['owned']) {
+          return args['name']
+            ? `Edit '${args['name']}'`
+            : 'Edit the ContainDS Dashboard';
+        } else {
+          return args['name']
+            ? (args['name'] as string)
+            : 'Open the ContainDS Dashboard';
+        }
+      },
+      caption: args => {
+        if (args['owned']) {
+          return args['name']
+            ? `Edit '${args['name']}' Dashboard`
+            : 'Edit the ContainDS Dashboard';
+        } else {
+          return args['name']
+            ? `Open ${args['username']}'s '${
+                args['name']
+              }' Dashboard in a New Browser Tab`
+            : 'Open a ContainDS Dashboard in a New Browser Tab';
+        }
+      },
       execute: args => {
         const url = args['url'] as string;
+        const owned = args['owned'] as boolean;
         if (url) {
-          window.open(url, '_blank');
+          if (owned && args['path']) {
+            commands.execute('docmanager:open', {
+              path: args['path']
+            });
+          } else {
+            window.open(url, '_blank');
+          }
         }
       },
       icon: CONTAINDS_ICON_CLASS
@@ -154,14 +179,14 @@ const extension: JupyterFrontEndPlugin<void> = {
 
     if (palette) {
       const category = 'Notebook Operations'; // Same category as Voilà
-      palette.addItem({ command: CommandIDs.containdsOpen, category });
+      palette.addItem({ command: CommandIDs.containdsCreate, category });
     }
 
     if (menu && menu.viewMenu) {
       menu.viewMenu.addGroup(
         [
           {
-            command: CommandIDs.containdsOpen
+            command: CommandIDs.containdsCreate
           }
         ],
         1001
@@ -186,8 +211,12 @@ export default extension;
 
 /* eslint-disable no-inner-declarations */
 namespace Private {
-  const launcherCategory = 'ContainDS Dashboards';
-
+  /**
+   * Add dashboards to the launcher
+   *
+   * @param launcher JupyterFrontEnd launcher
+   * @param endpoint API URL to get dashboards
+   */
   export async function addDashboardsToLauncher(
     launcher: ILauncher,
     endpoint: string
@@ -196,12 +225,14 @@ namespace Private {
     for (const user in dashboardsMap) {
       if (Object.prototype.hasOwnProperty.call(dashboardsMap, user)) {
         const dashboards = dashboardsMap[user];
-
+        const owned = user === '_owned';
         dashboards.map(dashboard => {
           launcher.add({
             command: CommandIDs.containdsOpen,
-            args: { ...dashboard },
-            category: launcherCategory
+            args: { ...dashboard, owned },
+            category: owned
+              ? 'Your ContainDS Dashboards'
+              : 'Shared ContainDS Dashboards'
           });
         });
       }
