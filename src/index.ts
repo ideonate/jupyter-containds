@@ -24,13 +24,8 @@ const CONTAINDS_ICON_CLASS = 'jp-MaterialIcon cds-dashboard-icon';
  * The command IDs used by the plugin.
  */
 export namespace CommandIDs {
-<<<<<<< HEAD
-  export const containdsPanel = 'containds:control-panel';
-  export const containdsOpen = 'notebook:open-with-containds';
-=======
   export const containdsCreate = 'notebook:open-with-containds';
   export const containdsOpen = 'containds:open-dashboard';
->>>>>>> ae8e82fa8c9be545484f00dc8f46bac5499b81fb
 }
 
 /**
@@ -143,36 +138,6 @@ const extension: JupyterFrontEndPlugin<void> = {
       isEnabled
     });
 
-<<<<<<< HEAD
-    commands.addCommand(CommandIDs.containdsPanel, {
-      label: 'ContainDS Dashboards Panel',
-      caption: 'Open the ContainDS Dashboards panel in a new browser tab',
-      execute: () => {
-        window.open(panelDashboardURL, '_blank');
-      }
-    });
-
-    if (palette) {
-      const category = 'ContainDS Dashboard';
-      palette.addItem({ command: CommandIDs.containdsOpen, category });
-      palette.addItem({ command: CommandIDs.containdsPanel, category });
-    }
-
-    if (menu) {
-      if (menu.fileMenu) {
-        menu.fileMenu.addGroup([{ command: CommandIDs.containdsPanel }], 99);
-      }
-      if (menu.viewMenu) {
-        menu.viewMenu.addGroup(
-          [
-            {
-              command: CommandIDs.containdsOpen
-            }
-          ],
-          1001
-        );
-      }
-=======
     commands.addCommand(CommandIDs.containdsOpen, {
       label: args => {
         if (args['owned']) {
@@ -228,7 +193,6 @@ const extension: JupyterFrontEndPlugin<void> = {
         ],
         1001
       );
->>>>>>> ae8e82fa8c9be545484f00dc8f46bac5499b81fb
     }
 
     if (launcher) {
