@@ -92,7 +92,6 @@ const extension: JupyterFrontEndPlugin<void> = {
     }
 
     const newDashboardURL = hubHost + URLExt.join(hubPrefix, 'dashboards-new');
-    const panelDashboardURL = hubHost + URLExt.join(hubPrefix, 'dashboards');
 
     function getCurrent(args: ReadonlyJSONObject): NotebookPanel | null {
       const widget = notebooks.currentWidget;

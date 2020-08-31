@@ -5,7 +5,11 @@
   "keywords": [
     "jupyter",
     "jupyterlab",
-    "jupyterlab-extension"
+    "jupyterlab-extension",
+    "containds",
+    "cdsdashboards",
+    "dashboards",
+    "jupyterhub"
   ],
   "homepage": "https://github.com/ideonate/jupyter-containds",
   "bugs": {

@@ -2,7 +2,7 @@
 
 ![Github Actions Status](https://github.com/ideonate/jupyter-containds/workflows/Build/badge.svg)
 
-Companion Jupyter extension for ContainDS
+Companion Jupyter extension for [ContainDS](https://github.com/ideonate/cdsdashboards)
 
 
 
