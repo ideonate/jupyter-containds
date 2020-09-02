@@ -4,13 +4,22 @@
 
 Companion Jupyter extension for [ContainDS](https://github.com/ideonate/cdsdashboards)
 
+[![JupyterLab ContainDS Extension screenshot](screenshots/launcher.png "JupyterLab ContainDS Extension screenshot")](screenshots/launcher.png)
 
+When editing a Jupyter notebook, one click creates a new Voila dashboard based on the current file.
+
+From the JupyterLab launcher screen, access your own dashboard configuration pages or click straight through to view 
+dashboards shared with you.
 
 ## Requirements
 
 * JupyterLab >= 2.0
 
 ## Install
+
+Search for 'containds' in the JupyterLab extensions manager, and enable @ideonate/jupyter-containds.
+
+Or from the command line:
 
 ```bash
 jupyter labextension install jupyter-containds
