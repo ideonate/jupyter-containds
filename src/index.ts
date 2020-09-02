@@ -24,6 +24,7 @@ const CONTAINDS_ICON_CLASS = 'jp-MaterialIcon cds-dashboard-icon';
  * The command IDs used by the plugin.
  */
 export namespace CommandIDs {
+  export const containdsPanel = 'containds:control-panel';
   export const containdsCreate = 'notebook:open-with-containds';
   export const containdsOpen = 'containds:open-dashboard';
 }
@@ -92,6 +93,7 @@ const extension: JupyterFrontEndPlugin<void> = {
     }
 
     const newDashboardURL = hubHost + URLExt.join(hubPrefix, 'dashboards-new');
+    const panelDashboardURL = hubHost + URLExt.join(hubPrefix, 'dashboards');
 
     function getCurrent(args: ReadonlyJSONObject): NotebookPanel | null {
       const widget = notebooks.currentWidget;
@@ -178,20 +180,34 @@ const extension: JupyterFrontEndPlugin<void> = {
       icon: CONTAINDS_ICON_CLASS
     });
 
+    commands.addCommand(CommandIDs.containdsPanel, {
+      label: 'ContainDS Dashboards Panel',
+      caption: 'Open the ContainDS Dashboards panel in a new browser tab',
+      execute: () => {
+        window.open(panelDashboardURL, '_blank');
+      }
+    });
+
     if (palette) {
-      const category = 'Notebook Operations'; // Same category as Voilà
+      const category = 'ContainDS Dashboard';
       palette.addItem({ command: CommandIDs.containdsCreate, category });
+      palette.addItem({ command: CommandIDs.containdsPanel, category });
     }
 
-    if (menu && menu.viewMenu) {
-      menu.viewMenu.addGroup(
-        [
-          {
-            command: CommandIDs.containdsCreate
-          }
-        ],
-        1001
-      );
+    if (menu) {
+      if (menu.fileMenu) {
+        menu.fileMenu.addGroup([{ command: CommandIDs.containdsPanel }], 99);
+      }
+      if (menu.viewMenu) {
+        menu.viewMenu.addGroup(
+          [
+            {
+              command: CommandIDs.containdsCreate
+            }
+          ],
+          1001
+        );
+      }
     }
 
     if (launcher) {
