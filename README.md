@@ -22,7 +22,7 @@ Search for 'containds' in the JupyterLab extensions manager, and enable @ideonat
 Or from the command line:
 
 ```bash
-jupyter labextension install jupyter-containds
+jupyter labextension install @ideonate/jupyter-containds
 ```
 
 ## Contributing
