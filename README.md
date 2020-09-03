@@ -64,5 +64,5 @@ Now every change will be built locally and bundled into JupyterLab. Be sure to r
 
 ```bash
 
-jupyter labextension uninstall jupyter-containds
+jupyter labextension uninstall @ideonate/jupyter-containds
 ```
