@@ -55,7 +55,7 @@ export async function requestAPI<T>(
 ): Promise<T> {
   let response: Response;
   try {
-    response = await fetch(endPoint, init);
+    response = await fetch(endPoint, { ...init, cache: 'no-cache' });
   } catch (error) {
     throw new ServerConnection.NetworkError(error);
   }
