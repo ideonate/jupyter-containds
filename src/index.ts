@@ -244,7 +244,10 @@ namespace Private {
   }
 
   async function _requestDashboards(): Promise<void> {
-    const dashboardsMap = await requestAPI<ContainDS.IDashboards>(_endpoint);
+    const dashboardsMap = await requestAPI<ContainDS.IDashboards>(_endpoint, {
+      method: 'GET',
+      cache: 'no-cache'
+    });
 
     if (
       JSON.stringify(dashboardsMap) !== JSON.stringify(_dashboardsMap || {})
