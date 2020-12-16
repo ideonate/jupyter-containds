@@ -28,8 +28,8 @@ jobs:
         pip install -e .[test]
         jlpm run eslint:check
 
-        pytest jupyter_containds
+        pytest
 
-        jupyter labextension install .
+        jupyter labextension install @jupyter-widgets/jupyterlab-manager .
 
         python -m jupyterlab.browser_check
