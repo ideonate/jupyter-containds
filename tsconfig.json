@@ -4,21 +4,27 @@
     "composite": true,
     "declaration": true,
     "esModuleInterop": true,
-    "incremental": true,
     "jsx": "react",
-    "module": "esnext",
+    "lib": ["es2015", "dom"],
+    "module": "commonjs",
     "moduleResolution": "node",
     "noEmitOnError": true,
     "noImplicitAny": true,
     "noUnusedLocals": true,
+    "outDir": "lib",
     "preserveWatchOutput": true,
     "resolveJsonModule": true,
-    "outDir": "lib",
     "rootDir": "src",
+    "skipLibCheck": true,
+    "sourceMap": true,
     "strict": true,
     "strictNullChecks": false,
+    "strictPropertyInitialization": false,
     "target": "es2017",
     "types": []
   },
-  "include": ["src/*"]
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+  ]
 }

@@ -15,7 +15,7 @@ jobs:
     - name: Install node
       uses: actions/setup-node@v1
       with:
-       node-version: '10.x'
+        node-version: '12.x'
     - name: Install Python
       uses: actions/setup-python@v1
       with:
@@ -25,9 +25,11 @@ jobs:
       run: python -m pip install jupyterlab
     - name: Build the extension
       run: |
-        jlpm
+        pip install -e .[test]
         jlpm run eslint:check
 
-        jupyter labextension install .
+        pytest
+
+        jupyter labextension install @jupyter-widgets/jupyterlab-manager .
 
         python -m jupyterlab.browser_check

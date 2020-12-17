@@ -4,65 +4,92 @@
 
 Companion Jupyter extension for [ContainDS](https://github.com/ideonate/cdsdashboards)
 
-[![JupyterLab ContainDS Extension screenshot](screenshots/launcher.png "JupyterLab ContainDS Extension screenshot")](screenshots/launcher.png)
+[![JupyterLab ContainDS Extension screenshot](screenshots/launcher.png 'JupyterLab ContainDS Extension screenshot')](screenshots/launcher.png)
 
 When editing a Jupyter notebook, one click creates a new Voila dashboard based on the current file.
 
-From the JupyterLab launcher screen, access your own dashboard configuration pages or click straight through to view 
+From the JupyterLab launcher screen, access your own dashboard configuration pages or click straight through to view
 dashboards shared with you.
 
 ## Requirements
 
-* JupyterLab >= 2.0
+- JupyterLab >= 2.0
+- ipywidgets >= 7
 
-## Install
+## Installation
 
-Search for 'containds' in the JupyterLab extensions manager, and enable @ideonate/jupyter-containds.
-
-Or from the command line:
-
-```bash
-jupyter labextension install @ideonate/jupyter-containds
-```
-
-## Contributing
-
-### Install
-
-The `jlpm` command is JupyterLab's pinned version of
-[yarn](https://yarnpkg.com/) that is installed with JupyterLab. You may use
-`yarn` or `npm` in lieu of `jlpm` below.
+You can install using `pip`:
 
 ```bash
-# Clone the repo to your local environment
-# Move to jupyter-containds directory
-
-# Install dependencies
-jlpm
-# Build Typescript source
-jlpm build
-# Link your development version of the extension with JupyterLab
-jupyter labextension install .
-# Rebuild Typescript source after making changes
-jlpm build
-# Rebuild JupyterLab after making any changes
-jupyter lab build
+pip install jupyter_containds
 ```
 
-You can watch the source directory and run JupyterLab in watch mode to watch for changes in the extension's source and automatically rebuild the extension and application.
+Or if you use jupyterlab:
 
 ```bash
-# Watch the source directory in another terminal tab
-jlpm watch
-# Run jupyterlab in watch mode in one terminal tab
-jupyter lab --watch
+pip install jupyter_containds
+jupyter labextension install @jupyter-widgets/jupyterlab-manager @ideonate/jupyter-containds
 ```
 
-Now every change will be built locally and bundled into JupyterLab. Be sure to refresh your browser page after saving file changes to reload the extension (note: you'll need to wait for webpack to finish, which can take 10s+ at times).
+If you are using Jupyter Notebook 5.2 or earlier, you may also need to enable
+the nbextension:
+
+```bash
+jupyter nbextension enable --py [--sys-prefix|--user|--system] jupyter_containds
+```
 
 ### Uninstall
 
 ```bash
-
 jupyter labextension uninstall @ideonate/jupyter-containds
+pip uninstall jupyter_containds
 ```
+
+## Development Installation
+
+```bash
+# First install the python package. This will also build the JS packages.
+pip install -e ".[test, examples]"
+```
+
+When developing your extensions, you need to manually enable your extensions with the
+notebook / lab frontend. For lab, this is done by the command:
+
+```
+jupyter labextension install @jupyter-widgets/jupyterlab-manager --no-build
+jupyter labextension install .
+```
+
+For classic notebook, you can run:
+
+```
+jupyter nbextension install --sys-prefix --symlink --overwrite --py jupyter_containds
+jupyter nbextension enable --sys-prefix --py jupyter_containds
+```
+
+Note that the `--symlink` flag doesn't work on Windows, so you will here have to run
+the `install` command every time that you rebuild your extension. For certain installations
+you might also need another flag instead of `--sys-prefix`, but we won't cover the meaning
+of those flags here.
+
+### How to see your changes
+
+#### Typescript:
+
+To continuously monitor the project for changes and automatically trigger a rebuild, start Jupyter in watch mode:
+
+```bash
+jupyter lab --watch
+```
+
+And in a separate session, begin watching the source directory for changes:
+
+```bash
+jlpm run watch
+```
+
+After a change wait for the build to finish and then refresh your browser and the changes should take effect.
+
+#### Python:
+
+If you make a change to the python code then you will need to restart the notebook kernel to have it take effect.
