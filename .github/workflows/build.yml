@@ -29,6 +29,7 @@ jobs:
         jlpm run eslint:check
 
         pytest
+        jlpm run test
 
         jupyter labextension install @jupyter-widgets/jupyterlab-manager .
 
