@@ -9,7 +9,7 @@ if "%SPHINXBUILD%" == "" (
 )
 set SOURCEDIR=source
 set BUILDDIR=build
-set SPHINXPROJ=jupyter_containds
+set SPHINXPROJ=jupyter-containds
 
 if "%1" == "" goto help
 

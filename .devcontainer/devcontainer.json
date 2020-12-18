@@ -28,7 +28,7 @@
 
 	// Uncomment the next line to run commands after the container is created - for example installing curl.
 	// "postCreateCommand": "apt-get update && apt-get install -y curl vim",
-	"postCreateCommand": "python3 -m pip install -e .[test] && jupyter nbextension install --sys-prefix --symlink --py jupyter_containds && jupyter nbextension enable jupyter_containds --py --sys-prefix && jupyter labextension install @jupyter-widgets/jupyterlab-manager ."
+	"postCreateCommand": "python3 -m pip install -e .[test] && jupyter nbextension install --sys-prefix --symlink --py jupyter-containds && jupyter nbextension enable jupyter-containds --py --sys-prefix && jupyter labextension install @jupyter-widgets/jupyterlab-manager ."
 
 	// Uncomment when using a ptrace-based debugger like C++, Go, and Rust
 	// "runArgs": [ "--cap-add=SYS_PTRACE", "--security-opt", "seccomp=unconfined" ],

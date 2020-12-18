@@ -27,7 +27,7 @@ module.exports = [
     entry: './src/extension.ts',
     output: {
       filename: 'index.js',
-      path: path.resolve(__dirname, 'jupyter_containds', 'nbextension', 'static'),
+      path: path.resolve(__dirname, 'jupyter-containds', 'nbextension', 'static'),
       libraryTarget: 'amd'
     },
     module: {

@@ -1,5 +1,5 @@
 
-jupyter_containds
+jupyter-containds
 =====================================
 
 Version: |release|
@@ -10,13 +10,13 @@ Companion Jupyter extension for ContainDS
 Quickstart
 ----------
 
-To get started with jupyter_containds, install with pip::
+To get started with jupyter-containds, install with pip::
 
-    pip install jupyter_containds
+    pip install jupyter-containds
 
 or with conda::
 
-    conda install jupyter_containds
+    conda install jupyter-containds
 
 
 Contents

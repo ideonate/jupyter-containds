@@ -147,15 +147,15 @@ $RECYCLE.BIN/
 **/node_modules/
 *.tsbuildinfo
 package-lock.json
-jupyter_containds/nbextension/static/index.*
-jupyter_containds/labextension/*.tgz
+jupyter-containds/nbextension/static/index.*
+jupyter-containds/labextension/*.tgz
 
 # Coverage data
 # -------------
 **/coverage/
 
 # Packed lab extensions
-jupyter_containds/labextension
+jupyter-containds/labextension
 .vscode
 jupyterhub_cookie_secret
 jupyterhub-proxy.pid
