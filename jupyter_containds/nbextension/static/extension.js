@@ -6,7 +6,7 @@ define(function() {
     window['requirejs'].config({
         map: {
             '*': {
-                '@ideonate/jupyter-containds': 'nbextensions/jupyter-containds/index',
+                '@ideonate/jupyter-containds': 'nbextensions/jupyter_containds/index',
             },
         }
     });

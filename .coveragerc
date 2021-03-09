@@ -1,2 +1,2 @@
 [run]
-omit = jupyter-containds/tests/*
+omit = jupyter_containds/tests/*

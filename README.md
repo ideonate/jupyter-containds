@@ -21,13 +21,13 @@ dashboards shared with you.
 You can install using `pip`:
 
 ```bash
-pip install jupyter-containds
+pip install jupyter_containds
 ```
 
 Or if you use jupyterlab:
 
 ```bash
-pip install jupyter-containds
+pip install jupyter_containds
 jupyter labextension install @jupyter-widgets/jupyterlab-manager @ideonate/jupyter-containds
 ```
 
@@ -35,14 +35,14 @@ If you are using Jupyter Notebook 5.2 or earlier, you may also need to enable
 the nbextension:
 
 ```bash
-jupyter nbextension enable --py [--sys-prefix|--user|--system] jupyter-containds
+jupyter nbextension enable --py [--sys-prefix|--user|--system] jupyter_containds
 ```
 
 ### Uninstall
 
 ```bash
 jupyter labextension uninstall @ideonate/jupyter-containds
-pip uninstall jupyter-containds
+pip uninstall jupyter_containds
 ```
 
 ## Development Installation
@@ -63,8 +63,8 @@ jupyter labextension install .
 For classic notebook, you can run:
 
 ```
-jupyter nbextension install --sys-prefix --symlink --overwrite --py jupyter-containds
-jupyter nbextension enable --sys-prefix --py jupyter-containds
+jupyter nbextension install --sys-prefix --symlink --overwrite --py jupyter_containds
+jupyter nbextension enable --sys-prefix --py jupyter_containds
 ```
 
 Note that the `--symlink` flag doesn't work on Windows, so you will here have to run

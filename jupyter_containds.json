@@ -1,5 +1,5 @@
 {
   "load_extensions": {
-    "jupyter-containds/extension": true
+    "jupyter_containds/extension": true
   }
 }

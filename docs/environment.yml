@@ -1,5 +1,5 @@
 
-name: jupyter-containds_docs
+name: jupyter_containds_docs
 channels:
   - conda-forge
 dependencies:
