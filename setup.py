@@ -19,7 +19,7 @@ from setuptools import setup
 
 
 # The name of the project
-name = 'jupyter-containds'
+name = 'jupyter_containds'
 
 # Ensure a valid python version
 ensure_python('>=3.6')
@@ -33,7 +33,7 @@ lab_path = pjoin(HERE, name, 'labextension')
 # Representative files that should exist after a successful build
 jstargets = [
     pjoin(nb_path, 'index.js'),
-    # pjoin(HERE, 'lib', 'plugin.js'),
+    pjoin(HERE, 'lib', 'plugin.js'),
 ]
 
 package_data_spec = {
@@ -47,7 +47,7 @@ data_files_spec = [
     ('share/jupyter/nbextensions/jupyter-containds',
         nb_path, '*.js*'),
     ('share/jupyter/lab/extensions', lab_path, '*.tgz'),
-    ('etc/jupyter/nbconfig/notebook.d' , HERE, 'jupyter-containds.json')
+    ('etc/jupyter/nbconfig/notebook.d' , HERE, 'jupyter_containds.json')
 ]
 
 
@@ -60,7 +60,7 @@ cmdclass['jsdeps'] = combine_commands(
 
 
 setup_args = dict(
-    name            = name,
+    name            = name.replace('_', '-'),
     description     = 'Companion Jupyter extension for ContainDS',
     version         = version,
     scripts         = glob(pjoin('scripts', '*')),

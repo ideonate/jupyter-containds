@@ -17,9 +17,9 @@ Next, install it with a develop install using pip::
 If you are planning on working on the JS/frontend code, you should also do
 a link installation of the extension::
 
-    jupyter nbextension install [--sys-prefix / --user / --system] --symlink --py jupyter-containds
+    jupyter nbextension install [--sys-prefix / --user / --system] --symlink --py jupyter_containds
 
-    jupyter nbextension enable [--sys-prefix / --user / --system] --py jupyter-containds
+    jupyter nbextension enable [--sys-prefix / --user / --system] --py jupyter_containds
 
 with the `appropriate flag`_. Or, if you are using Jupyterlab::
 

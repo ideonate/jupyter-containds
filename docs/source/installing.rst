@@ -18,9 +18,9 @@ If you installed via pip, and notebook version < 5.3, you will also have to
 install / configure the front-end extension as well. If you are using classic
 notebook (as opposed to Jupyterlab), run::
 
-    jupyter nbextension install [--sys-prefix / --user / --system] --py jupyter-containds
+    jupyter nbextension install [--sys-prefix / --user / --system] --py jupyter_containds
 
-    jupyter nbextension enable [--sys-prefix / --user / --system] --py jupyter-containds
+    jupyter nbextension enable [--sys-prefix / --user / --system] --py jupyter_containds
 
 with the `appropriate flag`_. If you are using Jupyterlab, install the extension
 with::

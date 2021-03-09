@@ -22,7 +22,7 @@ jobs:
         python-version: '3.7'
         architecture: 'x64'
     - name: Install dependencies
-      run: python -m pip install jupyterlab
+      run: python -m pip install jupyterlab~=2.0
     - name: Build the extension
       run: |
         pip install -e .[test]
@@ -32,5 +32,5 @@ jobs:
         jlpm run test
 
         jupyter labextension install @jupyter-widgets/jupyterlab-manager .
-
+        jupyter labextension list 2>&1 | grep -ie "@ideonate/jupyter-containds.*OK"
         python -m jupyterlab.browser_check

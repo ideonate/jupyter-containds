@@ -1,10 +1,10 @@
 # jupyter-containds
 
-![Github Actions Status](https://github.com/ideonate/jupyter-containds/workflows/Build/badge.svg)
+[![Github Actions Status](https://github.com/ideonate/jupyter-containds/workflows/Build/badge.svg)](https://github.com/ideonate/jupyter-containds/workflows/Build)
 
 Companion Jupyter extension for [ContainDS](https://github.com/ideonate/cdsdashboards)
 
-[![JupyterLab ContainDS Extension screenshot](screenshots/launcher.png 'JupyterLab ContainDS Extension screenshot')](screenshots/launcher.png)
+![JupyterLab ContainDS Extension screenshot](screenshots/launcher.png)
 
 When editing a Jupyter notebook, one click creates a new Voila dashboard based on the current file.
 
@@ -24,7 +24,7 @@ You can install using `pip`:
 pip install jupyter-containds
 ```
 
-Or if you use jupyterlab:
+Or if you use JupyterLab:
 
 ```bash
 pip install jupyter-containds
@@ -35,7 +35,7 @@ If you are using Jupyter Notebook 5.2 or earlier, you may also need to enable
 the nbextension:
 
 ```bash
-jupyter nbextension enable --py [--sys-prefix|--user|--system] jupyter-containds
+jupyter nbextension enable --py [--sys-prefix|--user|--system] jupyter_containds
 ```
 
 ### Uninstall
@@ -63,8 +63,8 @@ jupyter labextension install .
 For classic notebook, you can run:
 
 ```
-jupyter nbextension install --sys-prefix --symlink --overwrite --py jupyter-containds
-jupyter nbextension enable --sys-prefix --py jupyter-containds
+jupyter nbextension install --sys-prefix --symlink --overwrite --py jupyter_containds
+jupyter nbextension enable --sys-prefix --py jupyter_containds
 ```
 
 Note that the `--symlink` flag doesn't work on Windows, so you will here have to run
