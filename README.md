@@ -1,10 +1,10 @@
 # jupyter-containds
 
-![Github Actions Status](https://github.com/ideonate/jupyter-containds/workflows/Build/badge.svg)
+[![Github Actions Status](https://github.com/ideonate/jupyter-containds/workflows/Build/badge.svg)](https://github.com/ideonate/jupyter-containds/workflows/Build)
 
 Companion Jupyter extension for [ContainDS](https://github.com/ideonate/cdsdashboards)
 
-[![JupyterLab ContainDS Extension screenshot](screenshots/launcher.png 'JupyterLab ContainDS Extension screenshot')](screenshots/launcher.png)
+![JupyterLab ContainDS Extension screenshot](screenshots/launcher.png)
 
 When editing a Jupyter notebook, one click creates a new Voila dashboard based on the current file.
 
@@ -21,13 +21,13 @@ dashboards shared with you.
 You can install using `pip`:
 
 ```bash
-pip install jupyter_containds
+pip install jupyter-containds
 ```
 
-Or if you use jupyterlab:
+Or if you use JupyterLab:
 
 ```bash
-pip install jupyter_containds
+pip install jupyter-containds
 jupyter labextension install @jupyter-widgets/jupyterlab-manager @ideonate/jupyter-containds
 ```
 
@@ -42,7 +42,7 @@ jupyter nbextension enable --py [--sys-prefix|--user|--system] jupyter_containds
 
 ```bash
 jupyter labextension uninstall @ideonate/jupyter-containds
-pip uninstall jupyter_containds
+pip uninstall jupyter-containds
 ```
 
 ## Development Installation

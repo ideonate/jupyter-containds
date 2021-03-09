@@ -44,7 +44,7 @@ package_data_spec = {
 }
 
 data_files_spec = [
-    ('share/jupyter/nbextensions/jupyter_containds',
+    ('share/jupyter/nbextensions/jupyter-containds',
         nb_path, '*.js*'),
     ('share/jupyter/lab/extensions', lab_path, '*.tgz'),
     ('etc/jupyter/nbconfig/notebook.d' , HERE, 'jupyter_containds.json')
@@ -60,7 +60,7 @@ cmdclass['jsdeps'] = combine_commands(
 
 
 setup_args = dict(
-    name            = name,
+    name            = name.replace('_', '-'),
     description     = 'Companion Jupyter extension for ContainDS',
     version         = version,
     scripts         = glob(pjoin('scripts', '*')),

@@ -5,13 +5,13 @@ Installation
 ============
 
 
-The simplest way to install jupyter_containds is via pip::
+The simplest way to install jupyter-containds is via pip::
 
-    pip install jupyter_containds
+    pip install jupyter-containds
 
 or via conda::
 
-    conda install jupyter_containds
+    conda install jupyter-containds
 
 
 If you installed via pip, and notebook version < 5.3, you will also have to
