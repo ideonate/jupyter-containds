@@ -8,6 +8,6 @@ def _jupyter_nbextension_paths():
     return [{
         'section': 'notebook',
         'src': 'nbextension/static',
-        'dest': 'jupyter_containds',
-        'require': 'jupyter_containds/extension'
+        'dest': 'jupyter-containds',
+        'require': 'jupyter-containds/extension'
     }]
