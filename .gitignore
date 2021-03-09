@@ -148,7 +148,6 @@ $RECYCLE.BIN/
 *.tsbuildinfo
 package-lock.json
 jupyter_containds/nbextension/static/index.*
-jupyter_containds/labextension/*.tgz
 
 # Coverage data
 # -------------
