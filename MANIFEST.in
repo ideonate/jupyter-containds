@@ -28,7 +28,7 @@ prune tests/build
 graft jupyter_containds/nbextension
 graft jupyter_containds/labextension
 graft src
-graft css
+graft style
 prune **/node_modules
 prune coverage
 prune lib
