@@ -159,3 +159,4 @@ jupyter_containds/labextension
 jupyterhub_cookie_secret
 jupyterhub-proxy.pid
 jupyterhub.sqlite
+MANIFEST
