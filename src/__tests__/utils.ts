@@ -99,12 +99,12 @@ export class DummyManager extends widgets.ManagerBase<HTMLElement> {
   testClasses: { [key: string]: any } = {};
 }
 
-export interface Constructor<T> {
+export interface IConstructor<T> {
   new (attributes?: any, options?: any): T;
 }
 
 export function createTestModel<T extends widgets.WidgetModel>(
-  constructor: Constructor<T>,
+  constructor: IConstructor<T>,
   attributes?: any
 ): T {
   const id = widgets.uuid();
