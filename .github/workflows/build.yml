@@ -25,11 +25,7 @@ jobs:
       run: python -m pip install jupyterlab~=2.0 jupyter-packaging~=0.7.9
     - name: Build the extension
       run: |
-        pip install -e .[test]
-        jlpm run eslint:check
-
-        pytest
-        jlpm run test
+        pip install .
 
         jupyter labextension install @jupyter-widgets/jupyterlab-manager .
         jupyter labextension list 2>&1 | grep -ie "@ideonate/jupyter-containds.*OK"
