@@ -18,13 +18,13 @@ dashboards shared with you.
 
 ## Installation
 
-You can install using `pip`:
+You can install using `pip` and JupyterLab 3+:
 
 ```bash
 pip install jupyter-containds
 ```
 
-Or if you use JupyterLab:
+If you use JupyterLab 2:
 
 ```bash
 pip install jupyter-containds
@@ -39,6 +39,13 @@ jupyter nbextension enable --py [--sys-prefix|--user|--system] jupyter_containds
 ```
 
 ### Uninstall
+
+
+```bash
+pip uninstall jupyter-containds
+```
+
+If you use JupyterLab 2:
 
 ```bash
 jupyter labextension uninstall @ideonate/jupyter-containds
@@ -56,8 +63,7 @@ When developing your extensions, you need to manually enable your extensions wit
 notebook / lab frontend. For lab, this is done by the command:
 
 ```
-jupyter labextension install @jupyter-widgets/jupyterlab-manager --no-build
-jupyter labextension install .
+jupyter labextension develop . --overwrite
 ```
 
 For classic notebook, you can run:
@@ -76,10 +82,10 @@ of those flags here.
 
 #### Typescript:
 
-To continuously monitor the project for changes and automatically trigger a rebuild, start Jupyter in watch mode:
+To continuously monitor the project for changes and automatically trigger a rebuild, start JupyterLab:
 
 ```bash
-jupyter lab --watch
+jupyter lab
 ```
 
 And in a separate session, begin watching the source directory for changes:
