@@ -86,7 +86,7 @@ export const labUIExtension: JupyterFrontEndPlugin<void> = {
     if (!hubPrefix) {
       return;
     } else {
-      console.debug('hub-extension: Found configuration ', {
+      console.debug('@ideonate/jupyter-containds: Found Hub configuration ', {
         hubHost: hubHost,
         hubPrefix: hubPrefix,
       });
